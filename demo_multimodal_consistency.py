@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-import sys
-import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
 from core import SelectorThreshold
 
-def demo_multimodal_consistency():
-    selector = SelectorThreshold()
+def demo_multimodal_consistency(selector=None):
+    if selector is None:
+        selector = SelectorThreshold()
     
     selector.task_card = {
         'goal': 'Generate consistent image description',
@@ -52,7 +49,7 @@ def demo_multimodal_consistency():
     
     validators = [validate_color_consistency, validate_element_consistency, validate_no_hallucinations]
     
-    result, should_apply = selector.preview_apply_gate(candidate, validators)
+    result, should_apply = selector.preview_apply_gate(candidate, validators, critical_validators=True)
     
     print("\n=== SELECTOR THRESHOLD DEMO: MULTIMODAL CONSISTENCY ===")
     print(f"Task: {selector.task_card['goal']}")

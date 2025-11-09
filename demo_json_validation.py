@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
-import sys
-import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
 from core import SelectorThreshold
 import json
 import re
 
-def demo_json_validation():
-    selector = SelectorThreshold()
+def demo_json_validation(selector=None):
+    if selector is None:
+        selector = SelectorThreshold()
     
     selector.task_card = {
         'goal': 'Extract user data to strict JSON schema',

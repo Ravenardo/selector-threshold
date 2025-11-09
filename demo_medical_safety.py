@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-import sys
-import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
 from core import SelectorThreshold
 
-def demo_medical_safety():
-    selector = SelectorThreshold()
+def demo_medical_safety(selector=None):
+    if selector is None:
+        selector = SelectorThreshold()
     
     selector.task_card = {
         'goal': 'Calculate drug dosage for patient',
@@ -50,7 +47,7 @@ def demo_medical_safety():
     
     validators = [validate_max_dose, validate_weight, validate_positive]
     
-    result, should_apply = selector.preview_apply_gate(candidate, validators)
+    result, should_apply = selector.preview_apply_gate(candidate, validators, critical_validators=True)
     
     print("\n=== SELECTOR THRESHOLD DEMO: MEDICAL SAFETY ===")
     print(f"Task: {selector.task_card['goal']}")
